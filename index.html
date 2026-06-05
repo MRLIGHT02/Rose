@@ -1,0 +1,311 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+.wrap{
+  background:#0a0005;
+  min-height:700px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:32px 16px 40px;
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+  width:100%;
+}
+.bg-glow{
+  position:absolute;
+  top:10%;left:50%;
+  transform:translateX(-50%);
+  width:320px;height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(180,10,60,0.18) 0%,transparent 70%);
+  animation:breathe 3.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes breathe{0%,100%{transform:translateX(-50%) scale(1);opacity:.7}50%{transform:translateX(-50%) scale(1.25);opacity:1}}
+.rose-wrap{
+  width:min(280px,80vw);
+  height:min(300px,85vw);
+  position:relative;
+  animation:hover 4s ease-in-out infinite;
+  margin-bottom:28px;
+  flex-shrink:0;
+}
+@keyframes hover{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+.rose-svg{width:100%;height:100%}
+.title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(22px,7vw,30px);
+  color:#fff;
+  letter-spacing:6px;
+  text-align:center;
+  text-shadow:0 0 40px rgba(220,30,80,0.9);
+  margin-bottom:4px;
+}
+.tagline{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(13px,4vw,16px);
+  color:rgba(255,160,185,0.75);
+  letter-spacing:4px;
+  text-align:center;
+  margin-bottom:36px;
+}
+.count-ring{
+  width:min(140px,38vw);
+  height:min(140px,38vw);
+  border-radius:50%;
+  border:1px solid rgba(220,40,90,0.35);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:32px;
+  position:relative;
+  background:radial-gradient(circle,rgba(180,10,60,0.12),transparent 80%);
+}
+.count-ring::before{
+  content:'';
+  position:absolute;inset:-6px;
+  border-radius:50%;
+  border:1px solid rgba(220,40,90,0.15);
+}
+.count-num{
+  font-family:'Cinzel',serif;
+  font-size:clamp(36px,12vw,52px);
+  color:#ff4070;
+  line-height:1;
+  text-shadow:0 0 30px rgba(255,40,100,0.8);
+  transition:transform .15s ease;
+}
+.count-num.pop{animation:cPop .35s cubic-bezier(.36,.07,.19,.97) both}
+@keyframes cPop{0%{transform:scale(1)}40%{transform:scale(1.3);color:#fff}70%{transform:scale(.92)}100%{transform:scale(1)}}
+.count-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(11px,3vw,13px);
+  color:rgba(255,150,180,0.6);
+  letter-spacing:3px;
+  margin-top:4px;
+}
+.btn{
+  font-family:'Cinzel',serif;
+  font-size:clamp(12px,3.5vw,14px);
+  letter-spacing:3px;
+  color:#fff;
+  background:transparent;
+  border:1px solid rgba(220,50,100,0.5);
+  border-radius:60px;
+  padding:clamp(13px,4vw,16px) clamp(28px,10vw,48px);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .3s,box-shadow .3s;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+.btn:hover,.btn:active{border-color:rgba(220,50,100,0.9);box-shadow:0 0 28px rgba(200,30,80,0.4)}
+.btn:active{transform:scale(.96)}
+.spark{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,100,140,0.45);
+  transform:translate(-50%,-50%) scale(0);
+  animation:spark .55s ease forwards;
+  pointer-events:none;
+}
+@keyframes spark{to{width:260px;height:260px;opacity:0;transform:translate(-50%,-50%) scale(1)}}
+.petals-layer{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.fp{
+  position:absolute;
+  font-size:18px;
+  animation:flyPetal var(--d) ease forwards;
+  pointer-events:none;
+}
+@keyframes flyPetal{
+  0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}
+  100%{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(.2);opacity:0}
+}
+</style>
+
+<div class="wrap" id="wrap">
+  <div class="bg-glow"></div>
+  <div class="petals-layer" id="pLayer"></div>
+
+  <div class="rose-wrap">
+    <svg class="rose-svg" viewBox="0 0 280 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="rg0" cx="50%" cy="55%" r="55%">
+          <stop offset="0%" stop-color="#ff9ab0"/>
+          <stop offset="35%" stop-color="#d42050"/>
+          <stop offset="100%" stop-color="#6b0020"/>
+        </radialGradient>
+        <radialGradient id="rg1" cx="45%" cy="45%" r="52%">
+          <stop offset="0%" stop-color="#ffc0ce"/>
+          <stop offset="40%" stop-color="#e03060"/>
+          <stop offset="100%" stop-color="#900030"/>
+        </radialGradient>
+        <radialGradient id="rg2" cx="50%" cy="40%" r="50%">
+          <stop offset="0%" stop-color="#ffd8e0"/>
+          <stop offset="50%" stop-color="#f05070"/>
+          <stop offset="100%" stop-color="#b02040"/>
+        </radialGradient>
+        <radialGradient id="rg3" cx="50%" cy="40%" r="48%">
+          <stop offset="0%" stop-color="#ffe5ec"/>
+          <stop offset="60%" stop-color="#ff7090"/>
+          <stop offset="100%" stop-color="#c83050"/>
+        </radialGradient>
+        <radialGradient id="rg4" cx="50%" cy="35%" r="50%">
+          <stop offset="0%" stop-color="#fff0f3"/>
+          <stop offset="70%" stop-color="#ff90a8"/>
+          <stop offset="100%" stop-color="#e05070"/>
+        </radialGradient>
+        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffeef2"/>
+          <stop offset="100%" stop-color="#ff8099"/>
+        </radialGradient>
+        <linearGradient id="stemG" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#133a13"/>
+          <stop offset="50%" stop-color="#2a6e2a"/>
+          <stop offset="100%" stop-color="#133a13"/>
+        </linearGradient>
+      </defs>
+
+      <!-- STEM -->
+      <path d="M140 238 Q136 258 130 280" stroke="url(#stemG)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- LEFT LEAF -->
+      <path d="M137 255 Q112 244 108 226 Q126 232 137 255Z" fill="#1e5c1e"/>
+      <path d="M137 255 Q112 244 108 226 Q126 232 137 255Z" fill="none" stroke="#155015" stroke-width=".6"/>
+      <path d="M108 226 Q122.5 239 137 255" stroke="#155015" stroke-width=".5" fill="none"/>
+      <!-- RIGHT LEAF -->
+      <path d="M141 262 Q165 251 168 232 Q151 238 141 262Z" fill="#175217"/>
+      <path d="M141 262 Q165 251 168 232 Q151 238 141 262Z" fill="none" stroke="#0f420f" stroke-width=".6"/>
+      <path d="M168 232 Q154.5 247 141 262" stroke="#0f420f" stroke-width=".5" fill="none"/>
+
+      <!-- SEPALS -->
+      <path d="M140 236 Q124 222 120 205 Q135 215 140 236Z" fill="#2a7a2a"/>
+      <path d="M140 236 Q156 222 160 205 Q145 215 140 236Z" fill="#236823"/>
+      <path d="M140 236 Q130 214 132 196 Q138 210 140 236Z" fill="#2a7a2a"/>
+      <path d="M140 236 Q150 214 148 196 Q142 210 140 236Z" fill="#236823"/>
+      <path d="M140 236 Q138 210 140 195 Q142 210 140 236Z" fill="#318031"/>
+
+      <!-- === OUTER PETALS (layer 1) - 6 large petals === -->
+      <!-- petal shapes as paths for more organic look -->
+      <path d="M140 195 Q108 168 100 140 Q116 148 140 195Z" fill="url(#rg0)" opacity=".92"/>
+      <path d="M140 195 Q172 168 180 140 Q164 148 140 195Z" fill="url(#rg0)" opacity=".9"/>
+      <path d="M140 195 Q95 175 80 155 Q98 155 140 195Z" fill="url(#rg0)" opacity=".88"/>
+      <path d="M140 195 Q185 175 200 155 Q182 155 140 195Z" fill="url(#rg0)" opacity=".88"/>
+      <path d="M140 195 Q100 200 82 188 Q100 180 140 195Z" fill="url(#rg0)" opacity=".86"/>
+      <path d="M140 195 Q180 200 198 188 Q180 180 140 195Z" fill="url(#rg0)" opacity=".86"/>
+
+      <!-- OUTER PETAL ELLIPSES for fullness -->
+      <ellipse cx="140" cy="165" rx="30" ry="42" fill="url(#rg0)" transform="rotate(-38 140 165)" opacity=".9"/>
+      <ellipse cx="140" cy="165" rx="30" ry="42" fill="url(#rg0)" transform="rotate(38 140 165)" opacity=".9"/>
+      <ellipse cx="140" cy="165" rx="28" ry="40" fill="url(#rg0)" transform="rotate(-80 140 165)" opacity=".86"/>
+      <ellipse cx="140" cy="165" rx="28" ry="40" fill="url(#rg0)" transform="rotate(80 140 165)" opacity=".86"/>
+      <ellipse cx="140" cy="165" rx="29" ry="42" fill="url(#rg0)" transform="rotate(0 140 165)" opacity=".9"/>
+      <ellipse cx="140" cy="165" rx="29" ry="41" fill="url(#rg0)" transform="rotate(180 140 165)" opacity=".88"/>
+
+      <!-- MID PETALS (layer 2) -->
+      <ellipse cx="140" cy="162" rx="23" ry="32" fill="url(#rg1)" transform="rotate(-50 140 162)" opacity=".95"/>
+      <ellipse cx="140" cy="162" rx="23" ry="32" fill="url(#rg1)" transform="rotate(50 140 162)" opacity=".95"/>
+      <ellipse cx="140" cy="162" rx="22" ry="31" fill="url(#rg1)" transform="rotate(-120 140 162)" opacity=".93"/>
+      <ellipse cx="140" cy="162" rx="22" ry="31" fill="url(#rg1)" transform="rotate(120 140 162)" opacity=".93"/>
+      <ellipse cx="140" cy="162" rx="23" ry="32" fill="url(#rg1)" transform="rotate(0 140 162)" opacity=".95"/>
+      <ellipse cx="140" cy="162" rx="22" ry="31" fill="url(#rg1)" transform="rotate(60 140 162)" opacity=".93"/>
+
+      <!-- INNER PETALS (layer 3) -->
+      <ellipse cx="140" cy="158" rx="17" ry="24" fill="url(#rg2)" transform="rotate(-65 140 158)" opacity=".97"/>
+      <ellipse cx="140" cy="158" rx="17" ry="24" fill="url(#rg2)" transform="rotate(65 140 158)" opacity=".97"/>
+      <ellipse cx="140" cy="158" rx="16" ry="23" fill="url(#rg2)" transform="rotate(0 140 158)" opacity=".97"/>
+      <ellipse cx="140" cy="158" rx="16" ry="23" fill="url(#rg2)" transform="rotate(130 140 158)" opacity=".95"/>
+      <ellipse cx="140" cy="158" rx="16" ry="22" fill="url(#rg2)" transform="rotate(-130 140 158)" opacity=".95"/>
+
+      <!-- DEEP INNER (layer 4) -->
+      <ellipse cx="140" cy="154" rx="12" ry="18" fill="url(#rg3)" transform="rotate(-80 140 154)"/>
+      <ellipse cx="140" cy="154" rx="12" ry="18" fill="url(#rg3)" transform="rotate(80 140 154)"/>
+      <ellipse cx="140" cy="154" rx="12" ry="18" fill="url(#rg3)" transform="rotate(0 140 154)"/>
+      <ellipse cx="140" cy="154" rx="11" ry="17" fill="url(#rg3)" transform="rotate(160 140 154)"/>
+
+      <!-- CORE PETALS (layer 5) -->
+      <ellipse cx="140" cy="150" rx="8" ry="13" fill="url(#rg4)" transform="rotate(-40 140 150)"/>
+      <ellipse cx="140" cy="150" rx="8" ry="13" fill="url(#rg4)" transform="rotate(40 140 150)"/>
+      <ellipse cx="140" cy="150" rx="8" ry="13" fill="url(#rg4)" transform="rotate(0 140 150)"/>
+
+      <!-- CENTER BUD -->
+      <circle cx="140" cy="149" r="9" fill="url(#cg)"/>
+      <circle cx="140" cy="149" r="5.5" fill="#ffd0dc"/>
+      <circle cx="140" cy="149" r="3" fill="#ffaabe"/>
+
+      <!-- SHINE -->
+      <ellipse cx="132" cy="135" rx="7" ry="10" fill="white" opacity=".18" transform="rotate(-25 132 135)"/>
+      <ellipse cx="148" cy="130" rx="4" ry="6" fill="white" opacity=".12" transform="rotate(15 148 130)"/>
+
+      <!-- SUBTLE PETAL VEINS -->
+      <path d="M140 195 Q125 175 115 155" stroke="rgba(100,0,30,0.2)" stroke-width=".8" fill="none"/>
+      <path d="M140 195 Q155 175 165 155" stroke="rgba(100,0,30,0.2)" stroke-width=".8" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="title">LoveRose</div>
+  <div class="tagline">every touch, a petal blooms</div>
+
+  <div class="count-ring">
+    <div class="count-num" id="num">0</div>
+    <div class="count-sub" id="sub">petals given</div>
+  </div>
+
+  <button class="btn" id="btn" ontouchstart="" onclick="onTap(event)">Give a Petal</button>
+</div>
+
+<script>
+let n=0;
+const numEl=document.getElementById('num');
+const subEl=document.getElementById('sub');
+const btn=document.getElementById('btn');
+const layer=document.getElementById('pLayer');
+
+function onTap(e){
+  n++;
+  numEl.classList.remove('pop');
+  void numEl.offsetWidth;
+  numEl.classList.add('pop');
+  numEl.textContent=n;
+  subEl.textContent=n===1?'petal given':'petals given';
+
+  const r=btn.getBoundingClientRect();
+  const wrap=document.getElementById('wrap').getBoundingClientRect();
+  const cx=(e.touches?e.touches[0].clientX:e.clientX)-wrap.left;
+  const cy=(e.touches?e.touches[0].clientY:e.clientY)-wrap.top;
+
+  const sp=document.createElement('div');
+  sp.className='spark';
+  sp.style.cssText=`width:10px;height:10px;left:${cx}px;top:${cy}px;`;
+  document.getElementById('wrap').appendChild(sp);
+  setTimeout(()=>sp.remove(),600);
+
+  const icons=['🌹','❤️','🌸','💕','✨','🌺','💗'];
+  for(let i=0;i<8;i++){
+    const p=document.createElement('div');
+    p.className='fp';
+    p.textContent=icons[Math.floor(Math.random()*icons.length)];
+    const angle=Math.random()*Math.PI*2;
+    const dist=70+Math.random()*110;
+    p.style.setProperty('--x',Math.cos(angle)*dist+'px');
+    p.style.setProperty('--y',Math.sin(angle)*dist+'px');
+    p.style.setProperty('--r',(Math.random()*600-300)+'deg');
+    p.style.setProperty('--d',(.5+Math.random()*.55)+'s');
+    p.style.left=cx+'px';
+    p.style.top=cy+'px';
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(),1100);
+  }
+
+  if(n===1) btn.textContent='Give Another Petal';
+  else if(n%50===0) btn.textContent='50 Petals of Pure Love!';
+  else if(n%10===0) btn.textContent=n+' Petals of Love!';
+  else btn.textContent='Give Petal #'+(n+1);
+}
+</script>
